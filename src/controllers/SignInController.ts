@@ -2,6 +2,7 @@ import { compare } from 'bcryptjs';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
 
+import { RefreshToken } from '../lib/RefreshToken';
 import { AccountsRepository } from '../repositories/AccountsRepository';
 
 export class SignInController {
@@ -31,6 +32,8 @@ export class SignInController {
     }
 
     const accessToken = await reply.jwtSign({ sub: account.id });
-    return reply.code(200).send({ accessToken });
+    const refreshToken = RefreshToken.generate(account.id);
+
+    return reply.code(200).send({ accessToken, refreshToken });
   };
 }

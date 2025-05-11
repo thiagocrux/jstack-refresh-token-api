@@ -1,6 +1,7 @@
 import { hash } from 'bcryptjs';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
+
 import { AccountsRepository } from '../repositories/AccountsRepository';
 
 export class SignUpController {

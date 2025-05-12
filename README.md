@@ -127,7 +127,7 @@ This section describes the available scripts in the `package.json` file and thei
   pnpm prisma:studio
   ```
 
-## Useful links
+## Related links
 
 - [Live #015 - Implementando refresh tokens em APIs Node.js](https://app.jstack.com.br/classroom/lives/implementando-refresh-tokens-em-apis-node-js)
 

@@ -6,7 +6,7 @@ For more details on other project components, check out the [web client](https:/
 
 ## Technologies
 
-These are some of the tecnologies used in this project:
+These are some of the technologies used in this project:
 
 - `axios`: A promise-based HTTP client for Node.js and browsers, supporting request/response interception, automatic JSON transformation, and easy error handling.
 - `bcryptjs`: A library for hashing and comparing passwords securely in Node.js.
@@ -18,12 +18,24 @@ These are some of the tecnologies used in this project:
 - `fastify`: A fast and low-overhead web framework for Node.js, designed for building efficient HTTP servers.
 - `husky`: A tool for adding Git hooks to automate tasks like linting, testing, or commits in JavaScript/Node.js projects.
 - `lint-staged`: Runs linters on Git staged files.
+- `node.js`: The JavaScript runtime environment that executes your server-side code and runs the Fastify framework.
 - `prettier`: A code formatter.
 - `prisma`: A modern, type-safe database toolkit and ORM for Node.js and TypeScript.
 - `tsx`: A command-line tool and Node.js enhancement that allows you to execute TypeScript files directly without needing to explicitly compile them to JavaScript first.
+- `typescript`: A strongly typed programming language that builds on JavaScript, providing static type checking and modern language features for safer and more maintainable code.
 - `zod`: A TypeScript-first schema validation library with static type inference.
 
 _For more information about other dependencies, see the `package.json` file._
+
+## Prerequisites
+
+Before installing and running this project, make sure you have the following:
+
+- **PostgreSQL**: You need to have PostgreSQL installed to run this project.
+  - The recommended way is to use Docker for easy setup and management.
+  - Alternatively, you can install PostgreSQL directly on your system using your package manager.
+- **Node.js**: Install Node.js from [nodejs.org](https://nodejs.org/).
+- **Package Manager**: You need a package manager for Node.js. This tutorial uses [pnpm](https://pnpm.io/), but you can use npm or yarn if you prefer.
 
 ## Installation
 
@@ -41,22 +53,48 @@ cd jstack-refresh-token-api
 
 3. Install dependencies:
 
-```
+```bash
 pnpm install
 ```
 
-4. Create a `.env` file on the project's root and set the environment variables updating the `user`, `password` and the `database_name` on the `DATABASE_URL` variable. It may be necessary to update the hostname (localhost) and database port (5432) if your Postgres installation is configured differently. It is also necessary to set the `JWT_SECRET` and the `REFRESH_TOKEN_SECRET` variables so the authentication works correctly.
+4. Create a `.env` file in the root of the project and set the environment variables as described below:
 
-```JavaScript
-DATABASE_URL="postgresql://user:password@localhost:5432/database_name?schema=public"
+```bash
+# DATABASE_URL: The connection string for your PostgreSQL database.
+# Update <user>, <password>, and <database_name> as needed.
+# You may also need to change <host> (default: localhost) and <port> (default: 5432) if your PostgreSQL setup is different.
+DATABASE_URL="postgresql://<user>:<password>@<host>:<port>/<database_name>?schema=public"
+
+# JWT_SECRET: Secret key used for signing JWT tokens.
 JWT_SECRET=""
+
+# REFRESH_TOKEN_SECRET: Secret key used for signing refresh tokens.
 REFRESH_TOKEN_SECRET=""
 ```
 
-5. Generate the Prisma client
+5. (Docker only) Enter the PostgreSQL container shell:
 
+```bash
+docker exec -it <container_name> bash
 ```
+
+6. Create the database:
+
+```bash
+psql -U root -d postgres -c 'CREATE DATABASE <database_name>;'
+```
+
+7. Generate the Prisma client:
+
+```bash
 npx prisma generate
+```
+
+8. Apply database migrations:
+
+```bash
+npx prisma migrate dev
+
 ```
 
 ## Available scripts

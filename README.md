@@ -72,29 +72,10 @@ JWT_SECRET=""
 REFRESH_TOKEN_SECRET=""
 ```
 
-5. (Docker only) Enter the PostgreSQL container shell:
-
-```bash
-docker exec -it <container_name> bash
-```
-
-6. Create the database:
-
-```bash
-psql -U root -d postgres -c 'CREATE DATABASE <database_name>;'
-```
-
-7. Generate the Prisma client:
-
-```bash
-npx prisma generate
-```
-
-8. Apply database migrations:
+5. Create the database, the tables and generate the Prisma client
 
 ```bash
 npx prisma migrate dev
-
 ```
 
 ## Available scripts
